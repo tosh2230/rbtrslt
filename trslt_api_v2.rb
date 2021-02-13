@@ -17,7 +17,7 @@ def translate(contents, source, target)
 end
 
 if ARGV.empty?
-  puts 'Please set paramenters.'
+  puts 'Please set parameters.'
   exit
 end
 
