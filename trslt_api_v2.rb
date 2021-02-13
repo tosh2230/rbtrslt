@@ -1,16 +1,14 @@
 require 'net/http'
 require 'uri'
 require 'json'
+require 'optparse'
 
-SOURCE = 'ja'.freeze
-TARGET = 'en'.freeze
-
-def translate(contents)
+def translate(contents, source, target)
   url = URI.parse('https://translation.googleapis.com/language/translate/v2')
   params = {
     q: contents,
-    source: SOURCE,
-    target: TARGET,
+    source: source,
+    target: target,
     key: ENV['GOOGLE_CLOUD_API_KEY']
   }
   url.query = URI.encode_www_form(params)
@@ -20,8 +18,17 @@ end
 
 if ARGV.empty?
   puts 'Please set paramenters.'
-else
-  ARGV.each do |arg|
-    puts translate(arg)
-  end
+  exit
+end
+
+source = 'en'.freeze
+target = 'ja'.freeze
+
+opt = OptionParser.new
+opt.on('-s', '--source [ISO-639-1 Code]', 'source language') { |val| source = val }
+opt.on('-t', '--target [ISO-639-1 Code]', 'target language') { |val| target = val }
+opt.parse!(ARGV)
+
+ARGV.each do |arg|
+  puts translate(arg, source, target)
 end
