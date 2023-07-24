@@ -63,7 +63,7 @@ GEM
       faraday (>= 0.17.3, < 2.0)
       jwt (>= 1.5, < 3.0)
       multi_json (~> 1.10)
-    uri (0.10.2)
+    uri (0.10.3)
 
 PLATFORMS
   x86_64-linux
